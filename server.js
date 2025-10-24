@@ -274,8 +274,13 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', message: 'Scraper API is running' });
 });
 
-app.listen(PORT, () => {
-    console.log(`
+// For Vercel deployment
+module.exports = app;
+
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`
 ╔═══════════════════════════════════════════════════════════╗
 ║                                                           ║
 ║       🚀 Web Scraper Testing Server                      ║
@@ -284,5 +289,6 @@ app.listen(PORT, () => {
 ║       Open in browser to test!                           ║
 ║                                                           ║
 ╚═══════════════════════════════════════════════════════════╝
-    `);
-});
+        `);
+    });
+}
